@@ -1,0 +1,89 @@
+<!-- setup HTML document tyype,language, links, etc.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Blog</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<!--header -->
+<header>  <h1>My Blog</h1> </header>
+
+<!-- body section-->
+<body>
+
+  <!-- Category Filter -->
+  <form method="GET" action="/">
+    <!-- from to filter posts by category-->
+    <label for="filter">Filter by Category:</label>
+    <!-- drop dwon menu with categories tos select from-->
+    <select name="filter" id="filter">
+      <!-- option that will show all posts -->
+      <option value="">All</option>
+      <!-- option that filters only tech-->
+      <option value="Tech">Tech</option>
+      <!-- option that filters only lifestyle-->
+      <option value="Lifestyle">Lifestyle</option>
+      <!-- option that filters only education-->
+      <option value="Education">Education</option>
+    </select>
+    <!-- submit button for filter form-->
+    <button type="submit">Filter</button>
+  </form>
+
+  <!-- Create New Post section -->
+  <h2>Create a New Post</h2>
+  <!-- Form to submit a new posts-->
+  <form action="/create" method="POST">
+    <!-- input for post title-->
+    <input type="text" name="title" placeholder="Title" required />
+    <!-- textarea for content allowing for larger entries -->
+    <textarea name="content" placeholder="Content" required></textarea>
+    <!-- input for author name-->
+    <input type="text" name="author" placeholder="Author" required />
+    <!-- dropdown to select category-->
+    <select name="category">
+      <option value="Tech">Tech</option>
+      <option value="Lifestyle">Lifestyle</option>
+      <option value="Education">Education</option>
+    </select>
+    <!-- submit button for new post form-->
+    <button type="submit">Post</button>
+  </form>
+
+ 
+
+  <!-- section to Display Posts -->
+  <h2>All Posts</h2>
+  <!-- EJS code to check if there are any posts to display-->
+  <% if (posts.length === 0) { %>
+    <p>No posts yet. Be the first to write one!</p>
+    <!-- if posts does exists-->
+  <% } else { %>
+    <!-- loop through each post and display its details-->
+    <% posts.forEach(post => { %>
+      <div class="post">
+        <!-- display post title, content, author, timestamp, category, and edit/delete links-->
+        <h3><%= post.title %></h3>
+        <p><%= post.content %></p>
+        <small>
+          By <strong><%= post.author %></strong> on <%= post.timestamp %>  
+          | Category: <%= post.category %>
+        </small>
+
+        <!-- display joke fetched from JokeAPI -->
+        <p><em>Joke for <%= post.author %>:</em> <%= post.joke %></p>
+
+        <br />
+        <!-- links to edit and delete the post-->
+        <a href="/edit/<%= post.id %>">Edit</a>
+        <a href="/delete/<%= post.id %>">Delete</a>
+      </div>
+      <!-- ends EJS loop-->
+    <% }) %>
+    <!--end EJS conditonal-->
+  <% } %>
+</body>
+</html>
+

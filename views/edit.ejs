@@ -1,0 +1,50 @@
+<!-- setup html form-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- add title-->
+  <title>Edit Post</title>
+  <!-- link to styles css-->
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<!--body section-->
+<body>
+  <h1>Edit Blog Post</h1>
+<!-- EJS condition to check if posts exista-->
+  <% if (post) { %>
+    <!-- form to submit post data-->
+    <form action="/edit/<%= post.id %>" method="POST">
+      <!-- label and input fields for post -->
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" value="<%= post.title %>" required />
+      <!-- label and textarea for post content-->
+      <label for="content">Content:</label>
+      <textarea id="content" name="content" required><%= post.content %></textarea>
+      <!-- label and input for post authour-->
+      <label for="author">Author:</label>
+      <input type="text" id="author" name="author" value="<%= post.author %>" required />
+      <!-- label and dropdown for post category-->
+      <label for="category">Category:</label>
+      <select name="category" id="category">
+        <!-- option for tech category -->
+        <option value="Tech" <%= post.category === 'Tech' ? 'selected' : '' %>>Tech</option>
+        <!-- option for lifestyle category -->
+        <option value="Lifestyle" <%= post.category === 'Lifestyle' ? 'selected' : '' %>>Lifestyle</option>
+        <!-- option for education category -->
+        <option value="Education" <%= post.category === 'Education' ? 'selected' : '' %>>Education</option>
+      </select>
+      <!-- submit button for edit form-->
+      <button type="submit">Update Post</button>
+    </form>
+    <!-- if post not found-->
+  <% } else { %>
+    <!-- message indicating post not found-->
+    <p>Post not found. Please return to the <a href="/">home page</a>.</p>
+  <% } %>
+  <!-- link to return to home page-->
+  <p><a href="/">← Back to Home</a></p>
+</body>
+</html>
+
