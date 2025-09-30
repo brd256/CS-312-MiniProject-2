@@ -2,7 +2,7 @@
 const express = require('express');
 //import body-parser to handle data
 const bodyParser = require('body-parser');
-//import axios for making HTTP requests (if needed in future)
+//import axios for making HTTP requests 
 const axios = require('axios');
 // create an express application
 const app = express();
